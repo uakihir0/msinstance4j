@@ -18,7 +18,7 @@ public class InstancesResource {
     }
 
     /**
-     * {@inheritDoc}
+     * インスタンスリストを取得
      */
     public Instances listInstances(
             Integer count,
@@ -52,6 +52,29 @@ public class InstancesResource {
         });
     }
 
+
+    /**
+     * インスタンスリストを検索
+     */
+    public Instances searchInstances(
+            Integer count,
+            String query) {
+
+        return proceed(Instances.class, () -> {
+
+            HttpRequestBuilder builder = new HttpRequestBuilder()
+                    .target("https://instances.social")
+                    .path("/api/1.0/instances/search");
+
+            setProperty(builder, "count", count);
+            setProperty(builder, "q", query);
+
+            return builder
+                    .request(HttpMediaType.APPLICATION_JSON)
+                    .header("Authorization", this.bearerToken)
+                    .get();
+        });
+    }
 
     private void setProperty(HttpRequestBuilder builder, String key, Object obj) {
         if (obj != null) {
