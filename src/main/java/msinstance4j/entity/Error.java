@@ -10,14 +10,27 @@ import java.io.Serializable;
 public class Error implements Serializable {
 
     @SerializedName("error")
-    private String error;
+    private ErrorMessage error;
 
-    public String getError() {
+    public ErrorMessage getError() {
         return error;
     }
 
-    public void setError(String error) {
+    public void setError(ErrorMessage error) {
         this.error = error;
     }
 
+    public static class ErrorMessage implements Serializable {
+
+        @SerializedName("message")
+        private String message;
+
+        public String getMessage() {
+            return message;
+        }
+
+        public void setMessage(String message) {
+            this.message = message;
+        }
+    }
 }
